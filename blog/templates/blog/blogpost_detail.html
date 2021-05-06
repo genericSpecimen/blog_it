@@ -1,0 +1,24 @@
+ 
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1> {{ blogpost.title }} </h1>
+
+  <p>
+    <a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a> on {{ blogpost.post_date }}
+  </p>
+  <p>{{ blogpost.description }}</p>
+  
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Comments</h4>
+
+    {% for comment in blogpost.blogcomment_set.all %}
+      <hr>
+      <p> <a href="{{ comment.author.get_absolute_url }}"> {{ comment.author }} </a> commented at {{ comment.comment_date }}</p>
+      <p>
+        {{ comment.text }}
+      </p>
+    {% endfor %}
+    
+  </div>
+{% endblock %}

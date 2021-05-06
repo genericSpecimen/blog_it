@@ -1,8 +1,10 @@
 from django.db import models
 
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from datetime import date
+
 
 # Create your models here.
 
@@ -52,7 +54,7 @@ class BlogPost(models.Model):
     
     def get_absolute_url(self):
         # blog detail url
-        pass
+        return reverse('blogpost-detail', args=[str(self.id)])
     
     def __str__(self):
         return self.title

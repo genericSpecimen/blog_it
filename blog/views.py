@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 
 from .models import BlogAuthor, BlogPost, BlogComment
+from django.views import generic
 
 def index(request):
     """
@@ -24,3 +25,10 @@ def index(request):
     }
     
     return render(request, 'index.html', context=context)
+
+class BlogPostListView(generic.ListView):
+    model = BlogPost
+    paginate_by = 10
+
+class BlogPostDetailView(generic.DetailView):
+    model = BlogPost

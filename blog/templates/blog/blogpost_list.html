@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Explore Blog Posts</h1>
+  {% if blogpost_list %}
+  <ul>
+    {% for blogpost in blogpost_list %}
+      <li>
+        <a href="{{ blogpost.get_absolute_url }}">{{ blogpost.title }}</a> - by {{blogpost.author}}
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>Crickets chirping... Looks like no one has posted anything yet.</p>
+  {% endif %} 
+{% endblock %}
