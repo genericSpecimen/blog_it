@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+
   <h1>DIY Blog Home</h1>
   <p>Welcome to DIY Blog, a place where you can share your thoughts and ideas and interact with other people.</p>
   <h2>Current site statistics</h2>
@@ -14,4 +15,7 @@
     <li><strong>Blog Posts:</strong> {{ num_blogposts }}</li>
     <li><strong>Blog Comments:</strong> {{ num_blogcomments}}</li>
   </ul>
+  
+  <p> You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}. </p>
+  
 {% endblock %}
