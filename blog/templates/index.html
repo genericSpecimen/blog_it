@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+<!-- Overridden title block -->
+<title> DIY Blog - Home Page</title>
+{% endblock %}
+
+{% block content %}
+  <h1>DIY Blog Home</h1>
+  <p>Welcome to DIY Blog, a place where you can share your thoughts and ideas and interact with other people.</p>
+  <h2>Current site statistics</h2>
+  <ul>
+    <li><strong>Blog Authors:</strong> {{ num_blogauthors }}</li>
+    <li><strong>Blog Posts:</strong> {{ num_blogposts }}</li>
+    <li><strong>Blog Comments:</strong> {{ num_blogcomments}}</li>
+  </ul>
+{% endblock %}
