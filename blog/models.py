@@ -30,7 +30,7 @@ class BlogAuthor(models.Model):
         displaying an individual author.
         """
         # author detail url
-        #return reverse('author-detail', args=[str(self.id)])
+        return reverse('blogger-detail', args=[str(self.id)])
         pass
     
     def __str__(self):

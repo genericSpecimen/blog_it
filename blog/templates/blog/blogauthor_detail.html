@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ blogauthor }}</h1>
+  <p> born on: {{ blogauthor.date_of_birth }} <p>
+  <hr>
+  <strong>Bio</strong>
+  <p> {{ blogauthor.bio }} </p>
+  <strong>Location:</strong> <p> {{ blogauthor.location }} </p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Blog Posts</h4>
+    
+    {% if blogauthor.blogpost_set.all %}
+      {% for blogpost in blogauthor.blogpost_set.all %}
+      <hr>
+      <p>
+        <a href="{{ blogpost.get_absolute_url }}">{{ blogpost }} </a>
+      </p>
+      {% endfor %}
+    {% else %}
+      <p> This user hasn't written anything yet. </p>
+    {% endif %}
+  </div>
+{% endblock %}
