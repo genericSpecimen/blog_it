@@ -9,5 +9,5 @@ A blogging platform made with Django.
 - [x] Customize the admin site.
 - [x] Create the home page.
 - [x] Create BlogPost and BlogAuthor list and detail views.
-- [ ] Add user log in / log out functionality.
-- [ ] Add the functionality of commenting on blog posts.
+- [x] Add user log in / log out functionality.
+- [x] Add the functionality of commenting on blog posts.

@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 
 from .models import BlogAuthor, BlogPost, BlogComment
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
+
+from django.urls import reverse
 
 def index(request):
     """
@@ -39,3 +43,42 @@ class BlogAuthorListView(generic.ListView):
 
 class BlogAuthorDetailView(generic.DetailView):
     model = BlogAuthor
+
+class BlogCommentCreateView(LoginRequiredMixin, CreateView):
+    """
+    A form for commenting on a blog post.
+    This action requires login.
+    """
+    model = BlogComment
+    fields = ['text']
+    
+    def form_valid(self, form):
+        """
+        Add the author and associated blog info
+        to the form data before setting it as valid
+        and saving the form instance.
+        """
+        
+        # the author of the comment is simply the logged in user who makes this request
+        form.instance.author = BlogAuthor.objects.get(user=self.request.user)
+        
+        # set the blog post on which the comment is made
+        form.instance.blog = get_object_or_404(BlogPost, pk=self.kwargs['pk'])
+        
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        """
+        Adds the blog post information to display it
+        in the form template.
+        """
+        
+        # get base implementation context
+        context = super().get_context_data(**kwargs)
+        # get the blog post and add it to the context
+        context['blogpost'] = get_object_or_404(BlogPost, pk=self.kwargs['pk'])
+        
+        return context
+    
+    def get_success_url(self):
+        return reverse('blogpost-detail', kwargs={'pk' : self.kwargs['pk']})
