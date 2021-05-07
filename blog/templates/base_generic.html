@@ -18,6 +18,14 @@
           <li><a href="{% url 'index' %}">Home</a></li>
           <li><a href="{% url 'bloggers' %}">Explore Blog Authors</a></li>
           <li><a href="{% url 'blogs' %}">Explore Blog Posts</a></li>
+          <hr>
+          {% if user.is_authenticated %}
+            <li>Hello, {{ user.get_username }}!</li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+          {% endif %}     
+          
         </ul>
      {% endblock %}
       </div>
