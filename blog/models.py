@@ -34,7 +34,8 @@ class BlogAuthor(models.Model):
         pass
     
     def __str__(self):
-        return f'{self.user.username} ({self.user.last_name}, {self.user.first_name})'
+        #return f'{self.user.username} ({self.user.last_name}, {self.user.first_name})'
+        return f'{self.user.last_name}, {self.user.first_name}'
 
 class BlogPost(models.Model):
     """
