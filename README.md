@@ -8,5 +8,6 @@ A blogging platform made with Django.
 - [x] Register the models and add test objects using the admin site.
 - [x] Customize the admin site.
 - [x] Create the home page.
-- [ ] Add the concept of a user and a blog post.
+- [x] Create BlogPost and BlogAuthor list and detail views.
+- [ ] Add user log in / log out functionality.
 - [ ] Add the functionality of commenting on blog posts.
