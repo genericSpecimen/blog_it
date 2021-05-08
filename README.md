@@ -11,4 +11,5 @@ A blogging platform made with Django.
 - [x] Create BlogPost and BlogAuthor list and detail views.
 - [x] Add user log in / log out functionality.
 - [x] Add the functionality of commenting on blog posts.
-- [ ] Write basic tests
+- [x] Write basic tests
+- [ ] Allow users to create their own accounts
