@@ -130,6 +130,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Redirect to home URL after login
 # by default it redirects to /accounts/profile/
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # test password reset functionality by logging any emails sent to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

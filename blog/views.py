@@ -9,10 +9,17 @@ from django.views.generic.edit import CreateView
 
 from django.urls import reverse
 
+import random
+
 def index(request):
     """
     View function for the home page of the website.
     """
+    
+    items = list(BlogPost.objects.all())
+    print(items)
+    featured_blogposts = random.sample(items, 2)
+    print(featured_blogposts)
     
     num_blogauthors = BlogAuthor.objects.all().count()
     num_blogposts = BlogPost.objects.all().count()
@@ -22,6 +29,7 @@ def index(request):
     request.session['num_visits'] = num_visits + 1
     
     context = {
+        'featured_blogposts': featured_blogposts,
         'num_blogauthors'   : num_blogauthors,
         'num_blogposts'     : num_blogposts,
         'num_blogcomments'  : num_blogcomments,

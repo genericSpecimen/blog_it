@@ -1,37 +1,36 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
-  {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
-
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
-    {% endif %}
-  {% endif %}
-
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="Login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form>
-
-  {# leads to default password_reset view #}
-  <p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
-
+    <div class="text-center">
+        <form method="post" action="{% url 'login' %}" style="max-width:300px;margin:auto;" class="form-signin">
+        {% csrf_token %}
+        {% load static %}
+        <img class="mb-4" src="{% static 'images/default-avatar.png' %}" alt="Default avatar image" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <div class="form-group mb-0">
+        {{ form.username.label_tag }} {{ form.username }}
+        </div>
+        <div class="form-group">
+        {{ form.password.label_tag }} {{ form.password }}
+        </div>
+        <button class="btn btn-md btn-primary btn-block mt-2" type="submit">Sign in</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+        
+        {# leads to default password_reset view #}
+        <p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+        
+        {% if form.errors %}
+        <p class="text-danger">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p class="text-danger">Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+            {% else %}
+                <p class="text-danger">Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
+    </div>
 {% endblock %} 

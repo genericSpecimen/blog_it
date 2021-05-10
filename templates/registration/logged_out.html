@@ -1,7 +1,6 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <p>Logged out!</p>
-  <p>Thank you for being here.</p>
-  <a href="{% url 'login'%}">Click here to login again.</a>
+  <p class="text-success">Logged out successfully. Thank you for being here!</p>
+  <a href="{% url 'login'%}">Click here to log in again.</a>
 {% endblock %} 

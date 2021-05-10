@@ -2,20 +2,69 @@
 
 {% block title %}
 <!-- Overridden title block -->
-<title> DIY Blog - Home Page</title>
+<title> BlogIt - Home Page</title>
 {% endblock %}
 
 {% block content %}
+    <div class="jumbotron d-flex align-items-center min-vh-100">
+        <div class="container text-center">
+        <h1 class="display-4">BlogIt!</h1>
+        <p class="lead">Welcome to BlogIt, a blogging platform where you can share your thoughts and ideas with the world, and keep up with people who share your interests.</p>
+        <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Start blogging now</a>
+        </p>
+        </div>
+    </div>
 
-  <h1>DIY Blog Home</h1>
-  <p>Welcome to DIY Blog, a place where you can share your thoughts and ideas and interact with other people.</p>
-  <h2>Current site statistics</h2>
-  <ul>
-    <li><strong>Blog Authors:</strong> {{ num_blogauthors }}</li>
-    <li><strong>Blog Posts:</strong> {{ num_blogposts }}</li>
-    <li><strong>Blog Comments:</strong> {{ num_blogcomments}}</li>
-  </ul>
+	  <h3 class="text-dark"> Featured Posts </h3>
+      <div class="row mb-2">
+        {% for blogpost in featured_blogposts %}
+        <div class="col-md-6">
+          <div class="card flex-md-row mb-4 box-shadow h-md-250">
+            <div class="card-body d-flex flex-column align-items-start">
+              <strong class="d-inline-block mb-2 text-success">Design</strong>
+              <h3 class="mb-0">
+                <a class="text-dark" href="{{ blogpost.get_absolute_url }}">{{ blogpost.title }}</a>
+              </h3>
+              <div class="mb-1 text-muted">{{ blogpost.post_date }}</div>
+              <p class="card-text mb-auto">{{ blogpost.description }}</p>
+              <a href="{{ blogpost.get_absolute_url }}">Continue reading</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    
+    
+    <div class="card mb-3">
+      <div class="card-header">BlogIt! Statistics</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-9 text-secondary">
+            <h6 class="mb-0">Bloggers</h6>
+          </div>
+          <div class="col-sm-3">{{ num_blogauthors }}</div>
+        </div>
+        <hr>
+		<div class="row">
+          <div class="col-sm-9 text-secondary">
+            <h6 class="mb-0">Blog Posts</h6>
+          </div>
+          <div class="col-sm-3">{{ num_blogposts }}</div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-9 text-secondary">
+            <h6 class="mb-0">Blog Comments</h6>
+          </div>
+          <div class="col-sm-3">
+            <h6> {{ num_blogcomments }} </h6>
+          </div>
+        </div>
+      </div>
+    </div>
   
-  <p> You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}. </p>
-  
+    <h6 class="text-center text-muted"> You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}. </p>
+  </div>
 {% endblock %}
+
