@@ -1,103 +1,100 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <div class="text-center">
+<div class="text-center">
     {% load static %}
-    <img src="{% static 'images/default-avatar.png' %}" width="128" height="128" class="rounded" alt="profile-picture">
-    <h1 class="text-primary"> {{ blogauthor }} 	</h1>
+    <img src="{% static 'images/default-avatar.png' %}" width="128" height="128" class="rounded" alt="profile-picture" />
+    <h1 class="text-primary">{{ blogauthor }}</h1>
     <small class="text-muted">{{ blogauthor.date_of_birth }}</small>
-    </div>
+</div>
 
-    <div class="row mb-1 d-flex justify-content-center">
-        <div class="col-md-6">
-            <div class="card mb-3">
+<div class="row mb-1 d-flex justify-content-center">
+    <div class="col-md-6">
+        <div class="card mb-3">
             <div class="card-header">About</div>
             <div class="card-body">
-            <div class="row">
-                <div class="col-sm-3 text-secondary">
-                <h6 class="mb-0">Full Name</h6>
+                <div class="row">
+                    <div class="col-sm-3 text-secondary">
+                        <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9">
+                        {{ blogauthor }}
+                    </div>
                 </div>
-                <div class="col-sm-9">
-                {{ blogauthor }}
+                <hr />
+                <div class="row">
+                    <div class="col-sm-3 text-secondary">
+                        <h6 class="mb-0">Username</h6>
+                    </div>
+                    <div class="col-sm-9">
+                        <h6>{{ blogauthor.user.username }}</h6>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-3 text-secondary">
-                <h6 class="mb-0">Username</h6>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-3 text-secondary">
+                        <h6 class="mb-0">Location</h6>
+                    </div>
+                    <div class="col-sm-9">
+                        <h6>{{ blogauthor.location }}</h6>
+                    </div>
                 </div>
-                <div class="col-sm-9">
-                <h6>{{ blogauthor.user.username }}</h6>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-3 text-secondary">
+                        <h6 class="mb-0">Bio</h6>
+                    </div>
+                    <div class="col-sm-9">
+                        <h6>{{ blogauthor.bio }}</h6>
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-3 text-secondary">
-                <h6 class="mb-0">Location</h6>
-                </div>
-                <div class="col-sm-9">
-                <h6>{{ blogauthor.location }} </h6>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-3 text-secondary">
-                <h6 class="mb-0">Bio</h6>
-                </div>
-                <div class="col-sm-9">
-                <h6>{{ blogauthor.bio }} </h6>
-                </div>
-            </div>
             </div>
         </div>
-        </div>
+    </div>
 
-
-        <div class="col-md-4">
-            <div class="card mb-3">
+    <div class="col-md-4">
+        <div class="card mb-3">
             <div class="card-header">Statistics</div>
             <div class="card-body">
-            <div class="row">
-                <div class="col-sm-9 text-secondary">
-                <h6 class="mb-0">Blog Posts</h6>
+                <div class="row">
+                    <div class="col-sm-9 text-secondary">
+                        <h6 class="mb-0">Blog Posts</h6>
+                    </div>
+                    <div class="col-sm-3">{{ blogauthor.blogpost_set.all|length }}</div>
                 </div>
-                <div class="col-sm-3">{{ blogauthor.blogpost_set.all|length }}</div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm-9 text-secondary">
-                <h6 class="mb-0">Subscribers</h6>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-9 text-secondary">
+                        <h6 class="mb-0">Subscribers</h6>
+                    </div>
+                    <div class="col-sm-3">
+                        <h6>67</h6>
+                    </div>
                 </div>
-                <div class="col-sm-3">
-                <h6> 67 </h6>
-                </div>
             </div>
-            </div>
-        </div>
         </div>
     </div>
-    
-    <div class="offset-md-1">
+</div>
+
+<div class="offset-md-1">
     <h4>Blog Posts</h4>
-    <hr>
+    <hr />
     {% if blogauthor.blogpost_set.all %}
     <div class="list-group list-group-flush">
-    {% for blogpost in blogauthor.blogpost_set.all %}
+        {% for blogpost in blogauthor.blogpost_set.all %}
         <a href="{{ blogpost.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1 text-primary">{{ blogpost.title }}</h5>
-            <small class="text-muted">{{ blogpost.post_date }}</small>
-        </div>
-        <small>{{ blogpost.author }}</small>
-        <p class="mb-1">{{ blogpost.description | truncatechars:100 }}</p>
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1 text-primary">{{ blogpost.title }}</h5>
+                <small class="text-muted">{{ blogpost.post_date }}</small>
+            </div>
+            <small>{{ blogpost.author }}</small>
+            <p class="mb-1">{{ blogpost.description | truncatechars:100 }}</p>
         </a>
-    {% endfor %}
+        {% endfor %}
     </div>
-    
-    {% else %}
-      <p> This user hasn't written anything yet. </p>
-    {% endif %}
-  </div>
-  </div>
-{% endblock %}
 
+    {% else %}
+    <p>This user hasn't written anything yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

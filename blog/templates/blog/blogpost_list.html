@@ -1,23 +1,23 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <div class="col-md-8 offset-md-2">
-  <h1 class="text-center">Explore Blog Posts</h1>
-  {% if blogpost_list %}
+<div class="col-md-8 offset-md-2">
+    <h1 class="text-center">Explore Blog Posts</h1>
+    {% if blogpost_list %}
     <div class="list-group list-group-flush">
-    {% for blogpost in blogpost_list %}
+        {% for blogpost in blogpost_list %}
         <a href="{{ blogpost.get_absolute_url }}" class="list-group-item list-group-item-action flex-column align-items-start">
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1 text-primary">{{ blogpost.title }}</h5>
-            <small class="text-muted">{{ blogpost.post_date }}</small>
-        </div>
-        <small>{{ blogpost.author }}</small>
-        <p class="mb-1">{{ blogpost.description | truncatechars:100 }}</p>
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1 text-primary">{{ blogpost.title }}</h5>
+                <small class="text-muted">{{ blogpost.post_date }}</small>
+            </div>
+            <small>{{ blogpost.author }}</small>
+            <p class="mb-1">{{ blogpost.description | truncatechars:100 }}</p>
         </a>
-    {% endfor %}
+        {% endfor %}
     </div>
-  {% else %}
-    <p>Crickets chirping... Looks like no one has posted anything yet.</p>
-  {% endif %}
-  </div>
+    {% else %}
+    <p class="text-danger">Crickets chirping... Looks like no one has posted anything yet.</p>
+    {% endif %}
+</div>
 {% endblock %}

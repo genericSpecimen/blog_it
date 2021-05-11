@@ -17,9 +17,9 @@ def index(request):
     """
     
     items = list(BlogPost.objects.all())
-    print(items)
+    #print(items)
     featured_blogposts = random.sample(items, 2)
-    print(featured_blogposts)
+    #print(featured_blogposts)
     
     num_blogauthors = BlogAuthor.objects.all().count()
     num_blogposts = BlogPost.objects.all().count()

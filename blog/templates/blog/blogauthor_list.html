@@ -1,31 +1,35 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1 class="text-center">Explore Bloggers </h1>
-  {% if blogauthor_list %}
-    <div class="container mt-5 d-flex justify-content-center">
+
+<h1 class="text-center">Explore Bloggers</h1>
+{% if blogauthor_list %}
+<div class="container mt-5 d-flex justify-content-center">
     {% for blogauthor in blogauthor_list %}
     <div class="card p-3 mr-2 mb-2">
         <div class="d-flex align-items-center">
             <div class="image">
-            {% load static %}
-            <img src="{% static 'images/default-avatar.png' %}" class="rounded" width="72"> </div>
+                {% load static %}
+                <img src="{% static 'images/default-avatar.png' %}" class="rounded" width="72" />
+            </div>
             <div class="ml-3 w-100">
                 <h5 class="card-title mb-0 mt-0"><a href="{{ blogauthor.get_absolute_url }}">{{ blogauthor }}</a></h5>
                 <span>{{ blogauthor.location}}</span>
                 <div class="mt-2 d-flex justify-content-between stats">
-                    <div class="d-flex flex-column mr-2"> <span class="blogposts text-muted">Blog Posts</span>38</div>
-                    <div class="d-flex flex-column"> <span class="subscribers text-muted">Subscribers</span>10</div>
+                    <div class="d-flex flex-column mr-2"><span class="blogposts text-muted">Blog Posts</span>{{ blogauthor.blogpost_set.all|length }} </div>
+                    <div class="d-flex flex-column"><span class="subscribers text-muted">Subscribers</span>10</div>
                 </div>
-            <div class="button mt-2 d-flex flex-row align-items-center">
-                <a href="{{ blogauthor.get_absolute_url }}" class="btn btn-sm btn-primary w-100">Profile</a>
-                <button class="btn btn-sm btn-primary w-100 ml-2">Subscribe</button> </div>
+                <div class="button mt-2 d-flex flex-row align-items-center">
+                    <a href="{{ blogauthor.get_absolute_url }}" class="btn btn-sm btn-primary w-100">Profile</a>
+                    <button class="btn btn-sm btn-primary w-100 ml-2">Subscribe</button>
+                </div>
             </div>
         </div>
     </div>
     {% endfor %}
-    </div>
-  {% else %}
-    <p>There are no bloggers as of yet...</p>
-  {% endif %} 
+</div>
+{% else %}
+<p>There are no bloggers as of yet...</p>
+{% endif %}
+
 {% endblock %}
