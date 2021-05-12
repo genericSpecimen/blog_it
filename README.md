@@ -14,3 +14,4 @@ A blogging platform made with Django.
 - [x] Write basic tests
 - [x] Improve the user interface a bit
 - [x] Allow users to create their own accounts
+- [ ] Allow users to create their own blog posts

@@ -7,8 +7,9 @@ from .forms import UserSignUpForm
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
-
 from django.urls import reverse, reverse_lazy
+
+from datetime import date
 
 import random
 
@@ -97,3 +98,44 @@ class UserSignUpCreateView(CreateView):
     success_url = reverse_lazy('login')
     form_class = UserSignUpForm
     
+class BlogPostCreateView(LoginRequiredMixin, CreateView):
+    """
+    A form for creating a blog post.
+    This action requires login.
+    """
+    model = BlogPost
+    # author and post_date will be automatically set
+    # author = current user
+    # post_date = date.today()
+    fields = ['title', 'description']
+    
+    def form_valid(self, form):
+        """
+        Add the author and the date info
+        to the form data before setting it
+        as valid and saving the form instance.
+        """
+        
+        # the author of the blogpost is simply the logged in user who makes this request
+        form.instance.author = BlogAuthor.objects.get(user=self.request.user)
+        
+        form.instance.post_date = date.today()
+        
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        """
+        Adds the blog author information to
+        display it in the form template.
+        """
+        
+        # get base implementation context
+        context = super().get_context_data(**kwargs)
+        # get the blog post and add it to the context
+        context['blogauthor'] = BlogAuthor.objects.get(user=self.request.user)
+        
+        return context
+    
+    def get_success_url(self):
+        return reverse('blogpost-detail', args=(self.object.id,))
+        
