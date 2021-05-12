@@ -3,6 +3,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from datetime import date
 
 
@@ -37,6 +40,29 @@ class BlogAuthor(models.Model):
         #return f'{self.user.username} ({self.user.last_name}, {self.user.first_name})'
         return f'{self.user.last_name}, {self.user.first_name}'
 
+"""
+Define signals so that the BlogAuthor model will be automatically
+created/updated when we create/update User instances.
+Hook the create_user_profile and save_user_profile methods to the
+User model, whenever a save event occurs. This is called a post_save
+signal.
+"""
+@receiver(post_save, sender=User)
+def create_user_blogauthor(sender, instance, created, **kwargs):
+    if created:
+        BlogAuthor.objects.create(user=instance)
+    try:
+        instance.blogauthor.save()
+    except:
+        pass
+
+@receiver(post_save, sender=User)
+def save_user_blogauthor(sender, instance, **kwargs):
+    try:
+        instance.blogauthor.save()
+    except:
+        pass
+    
 class BlogPost(models.Model):
     """
     Model representing a single blog post.

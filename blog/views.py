@@ -3,11 +3,12 @@ from django.shortcuts import render, get_object_or_404
 # Create your views here.
 
 from .models import BlogAuthor, BlogPost, BlogComment
+from .forms import UserSignUpForm
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 import random
 
@@ -90,3 +91,9 @@ class BlogCommentCreateView(LoginRequiredMixin, CreateView):
     
     def get_success_url(self):
         return reverse('blogpost-detail', kwargs={'pk' : self.kwargs['pk']})
+
+class UserSignUpCreateView(CreateView):
+    template_name = 'registration/signup.html'
+    success_url = reverse_lazy('login')
+    form_class = UserSignUpForm
+    
