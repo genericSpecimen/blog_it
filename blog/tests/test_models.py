@@ -12,10 +12,14 @@ class BlogAuthorModelTest(TestCase):
                                        email='john@mail.com',
                                        password='testjopassword')
        
-       BlogAuthor.objects.create(user=user,
-                                 bio='I like books.',
-                                 location='Canada',
-                                 date_of_birth=date(1994, 10, 1))
+       user.blogauthor.bio = 'I like books.'
+       user.blogauthor.location = 'Canada'
+       user.blogauthor.date_of_birth = date(1994, 10, 1)
+       user.save()
+       #BlogAuthor.objects.create(user=user,
+                                 #bio='I like books.',
+                                 #location='Canada',
+                                 #date_of_birth=date(1994, 10, 1))
        
     def test_bio_label(self):
         blogger = BlogAuthor.objects.get(id=1)
@@ -63,14 +67,14 @@ class BlogPostModelTest(TestCase):
                                        email='john@mail.com',
                                        password='testjopassword')
        
-       blogger = BlogAuthor.objects.create(user=user,
-                                 bio='I like books.',
-                                 location='Canada',
-                                 date_of_birth=date(1994, 10, 1))
+       user.blogauthor.bio = 'I like books.'
+       user.blogauthor.location = 'Canada'
+       user.blogauthor.date_of_birth = date(1994, 10, 1)
+       user.save()
        
        BlogPost.objects.create(title='Hello World!',
                                description='This is a test description.',
-                               author=blogger)
+                               author=user.blogauthor)
        
     def test_title_label(self):
         blogpost = BlogPost.objects.get(id=1)
@@ -128,17 +132,17 @@ class BlogCommentModelTest(TestCase):
                                        email='john@mail.com',
                                        password='testjopassword')
        
-       blogger = BlogAuthor.objects.create(user=user,
-                                 bio='I like books.',
-                                 location='Canada',
-                                 date_of_birth=date(1994, 10, 1))
+       user.blogauthor.bio = 'I like books.'
+       user.blogauthor.location = 'Canada'
+       user.blogauthor.date_of_birth = date(1994, 10, 1)
+       user.save()
        
        blogpost = BlogPost.objects.create(title='Hello World!',
-                               description='This is a test description.',
-                               author=blogger)
+                                          description='This is a test description.',
+                                          author=user.blogauthor)
        
        blogcomment = BlogComment.objects.create(text='Thank you for the kind words. I hope you\'re doing well.',
-                                                author=blogger,
+                                                author=user.blogauthor,
                                                 blog=blogpost)
     
     def test_text_label(self):

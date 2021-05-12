@@ -15,11 +15,11 @@ class BlogAuthorListViewTest(TestCase):
             user = User.objects.create_user(username=f'john{blogger_id}',
                                             email=f'john{blogger_id}@mail.com',
                                             password=f'testjopassword{blogger_id}')
-            
-            BlogAuthor.objects.create(user=user,
-                                      bio=f'I like books {blogger_id}.',
-                                      location=f'Canada {blogger_id}',
-                                      date_of_birth=date(1994, 10, 1))
+        
+            user.blogauthor.bio = f'I like books {blogger_id}.'
+            user.blogauthor.location = f'Canada {blogger_id}'
+            user.blogauthor.date_of_birth = date(1994, 10, 1)
+            user.save()
     
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get('/blog/bloggers/')
@@ -56,10 +56,10 @@ class BlogAuthorDetailViewTest(TestCase):
                                        email='john@mail.com',
                                        password='testjopassword')
        
-       BlogAuthor.objects.create(user=user,
-                                 bio='I like books.',
-                                 location='Canada',
-                                 date_of_birth=date(1994, 10, 1))
+       user.blogauthor.bio = 'I like books.'
+       user.blogauthor.location = 'Canada'
+       user.blogauthor.date_of_birth = date(1994, 10, 1)
+       user.save()
     
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get('/blog/blogger/1')
@@ -84,14 +84,14 @@ class BlogPostListViewTest(TestCase):
                                             email=f'john{blogpost_id}@mail.com',
                                             password=f'testjopassword{blogpost_id}')
             
-            blogger = BlogAuthor.objects.create(user=user,
-                                        bio='I like books.',
-                                        location='Canada',
-                                        date_of_birth=date(1994, 10, 1))
+            user.blogauthor.bio = 'I like books.'
+            user.blogauthor.location = 'Canada'
+            user.blogauthor.date_of_birth = date(1994, 10, 1)
+            user.save()
             
             BlogPost.objects.create(title=f'Hello World {blogpost_id}!',
                                 description=f'This is a test description {blogpost_id}.',
-                                author=blogger)
+                                author=user.blogauthor)
     
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get('/blog/blogs/')
@@ -128,14 +128,14 @@ class BlogPostDetailViewTest(TestCase):
                                        email='john@mail.com',
                                        password='testjopassword')
        
-       blogger = BlogAuthor.objects.create(user=user,
-                                 bio='I like books.',
-                                 location='Canada',
-                                 date_of_birth=date(1994, 10, 1))
+       user.blogauthor.bio = 'I like books.'
+       user.blogauthor.location = 'Canada'
+       user.blogauthor.date_of_birth = date(1994, 10, 1)
+       user.save()
        
        BlogPost.objects.create(title='Hello World!',
                                description='This is a test description.',
-                               author=blogger)
+                               author=user.blogauthor)
     
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get('/blog/blog/1')
@@ -157,14 +157,14 @@ class BlogCommentCreateViewTest(TestCase):
                                        email='john@mail.com',
                                        password='testjopassword')
        
-       blogger = BlogAuthor.objects.create(user=user,
-                                 bio='I like books.',
-                                 location='Canada',
-                                 date_of_birth=date(1994, 10, 1))
+       user.blogauthor.bio = 'I like books.'
+       user.blogauthor.location = 'Canada'
+       user.blogauthor.date_of_birth = date(1994, 10, 1)
+       user.save()
        
        BlogPost.objects.create(title='Hello World!',
                                description='This is a test description.',
-                               author=blogger)
+                               author=user.blogauthor)
     
     def test_view_url_exists_at_desired_location(self):
         login = self.client.login(username='john', password='testjopassword')
