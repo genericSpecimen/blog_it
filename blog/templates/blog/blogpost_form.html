@@ -2,7 +2,8 @@
 
 {% block content %}
 <div class="col-md-8 offset-md-2">
-    <h2>Write a blog post as {{ blogauthor }}</h2>
+    <h2>Write a blog post</h2>
+    <h6 class="text-muted"> {{ blogauthor }} </h6>
     <hr />
     <form method="post">
         {% csrf_token %}
