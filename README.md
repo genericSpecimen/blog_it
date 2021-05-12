@@ -1,4 +1,4 @@
-# diy_blog
+# blog_it
 A blogging platform made with Django.
 
 ## To Do
