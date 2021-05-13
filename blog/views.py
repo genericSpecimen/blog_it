@@ -21,6 +21,7 @@ def index(request):
     items = list(BlogPost.objects.all())
     #print(items)
     
+    featured_blogposts = None
     try:
         featured_blogposts = random.sample(items, 2)
         #print(featured_blogposts)
