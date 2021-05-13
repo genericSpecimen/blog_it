@@ -20,6 +20,6 @@ jobs:
     - name: Install dependencies
       run: make install
     - name: Run collectstatic
-      run: make install
+      run: make collectstatic
     - name: Run tests
       run: make test
