@@ -24,7 +24,7 @@
                     <a class="text-dark" href="{{ blogpost.get_absolute_url }}">{{ blogpost.title }}</a>
                 </h3>
                 <div class="mb-1 text-muted">{{ blogpost.post_date }}</div>
-                <p class="card-text mb-auto">{{ blogpost.description }}</p>
+                <p class="card-text mb-auto">{{ blogpost.description | truncatechars:80 }}</p>
                 <a href="{{ blogpost.get_absolute_url }}">Continue reading</a>
             </div>
         </div>
