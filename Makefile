@@ -26,9 +26,9 @@ test:
 
 .PHONY: coverage
 coverage:
-	coverage erase
-	coverage run --source='.' --branch manage.py test
-	coverage report --fail-under=90 --show-missing --skip-covered
+	$(PYTHON) -m coverage erase
+	$(PYTHON) -m coverage run --source='.' --omit='*/env/*' --branch manage.py test
+	$(PYTHON) -m coverage report --fail-under=90 --show-missing --skip-covered
 
 .PHONY: run
 run:
