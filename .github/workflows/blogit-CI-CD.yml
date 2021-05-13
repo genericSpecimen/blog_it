@@ -19,6 +19,8 @@ jobs:
       run: make install
     - name: Run collectstatic
       run: make collectstatic
+    - name: Run coverage.py
+      run: make coverage
     - name: Run tests
       run: make test
       

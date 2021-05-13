@@ -24,6 +24,12 @@ collectstatic:
 test:
 	$(PYTHON) manage.py test
 
+.PHONY: coverage
+coverage:
+	coverage erase
+	coverage run --source='.' --branch manage.py test
+	coverage report --fail-under=90 --show-missing --skip-covered
+
 .PHONY: run
 run:
 	$(PYTHON) manage.py runserver
