@@ -19,5 +19,7 @@ jobs:
         python-version: 3.9
     - name: Install dependencies
       run: make install
+    - name: Run collectstatic
+      run: make install
     - name: Run tests
       run: make test
