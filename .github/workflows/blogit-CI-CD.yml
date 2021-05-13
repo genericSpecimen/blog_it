@@ -1,4 +1,4 @@
-name: Django Project
+name: BlogIt CI/CD
 
 on:
   push:
