@@ -4,7 +4,7 @@
 <div class="col-md-8 offset-md-2">
     <h1>{{ blogpost.title }}</h1>
     <h6 class="text-muted"><a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a> on {{ blogpost.post_date }}</h6>
-    <p>{{ blogpost.description }}</p>
+    <p>{{ blogpost.description | linebreaks }}</p>
     <hr />
     <h3>Comments</h3>
 
@@ -19,7 +19,7 @@
         <div class="media-body mb-1">
             <a href="{{ comment.author.get_absolute_url }}"><p class="mt-0 mb-0 text-primary">{{ comment.author }}</p></a>
             <small class="text-muted">on {{ comment.comment_date }}</small>
-            <p class="mt-0 mb-1">{{ comment.text}}</p>
+            <p class="mt-0 mb-1">{{ comment.text | linebreaks }}</p>
         </div>
     </div>
     {% endfor %}
