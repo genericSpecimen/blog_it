@@ -17,3 +17,5 @@ A blogging platform made with Django.
 - [x] Improve the user interface a bit
 - [x] Allow users to create their own accounts
 - [x] Allow users to create their own blog posts
+- [ ] Add a blog post category feature.
+- [ ] Add a blogger subscribe feature.
