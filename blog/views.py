@@ -20,8 +20,12 @@ def index(request):
     
     items = list(BlogPost.objects.all())
     #print(items)
-    featured_blogposts = random.sample(items, 2)
-    #print(featured_blogposts)
+    
+    try:
+        featured_blogposts = random.sample(items, 2)
+        #print(featured_blogposts)
+    except ValueError as err:
+        print("ValueError: ", err)
     
     num_blogauthors = BlogAuthor.objects.all().count()
     num_blogposts = BlogPost.objects.all().count()

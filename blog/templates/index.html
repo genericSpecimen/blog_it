@@ -11,9 +11,10 @@
         </p>
     </div>
 </div>
-
+ 
 <h3 class="text-dark">Featured Posts</h3>
 <div class="row mb-2">
+    {% if featured_blogposts %}
     {% for blogpost in featured_blogposts %}
     <div class="col-md-6">
         <div class="card flex-md-row mb-4 box-shadow h-md-250">
@@ -29,6 +30,9 @@
         </div>
     </div>
     {% endfor %}
+    {% else %}
+    <h6 class="text-dark">No featured posts yet</h6>
+    {% endif %}
 </div>
 
 <div class="card mb-3">
