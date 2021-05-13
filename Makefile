@@ -17,6 +17,9 @@ migrate:
 	$(PYTHON) manage.py makemigrations
 	$(PYTHON) manage.py migrate
 
+collectstatic:
+	$(PYTHON) manage.py collectstatic
+
 .PHONY: test
 test:
 	$(PYTHON) manage.py test
@@ -25,4 +28,4 @@ test:
 run:
 	$(PYTHON) manage.py runserver
 
-start: install migrate run
+start: install migrate collectstatic run
