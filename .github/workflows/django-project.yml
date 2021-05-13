@@ -7,10 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
-
+  build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.9
@@ -21,5 +19,21 @@ jobs:
       run: make install
     - name: Run collectstatic
       run: make collectstatic
+  
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
     - name: Run tests
       run: make test
+      
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
