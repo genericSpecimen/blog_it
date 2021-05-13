@@ -3,6 +3,8 @@ A blogging platform made with Django.
 
 ![BlogIt CI/CD](https://github.com/genericSpecimen/blog_it/actions/workflows/blogit-CI-CD.yml/badge.svg)
 
+Check it out [here](https://blogit-now.herokuapp.com/blog/)!
+
 ## To Do
 - [x] Create a To Do list.
 - [x] Create the skeleton project.
