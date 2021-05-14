@@ -21,7 +21,7 @@ jobs:
       run: make collectstatic
     - name: Run tests
       run: make test
-    - name: Run coverage.py and generate badge
+    - name: Run coverage.py
       run: make coverage
       
   deploy:
