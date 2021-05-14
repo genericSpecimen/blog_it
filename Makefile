@@ -30,6 +30,7 @@ coverage:
 	$(PYTHON) -m coverage run --source='.' --omit='*/$(VENV)/*' --branch manage.py test
 	$(PYTHON) -m coverage report --fail-under=90 --show-missing --skip-covered
 	$(BIN)/coverage-badge -f -o coverage.svg
+	echo '<!--'$(shell date)'-->' >> coverage.svg
 
 .PHONY: run
 run:
