@@ -23,7 +23,6 @@ jobs:
       run: make test
     - name: Run coverage.py and generate badge
       run: make coverage
-    - name: 
       
   deploy:
     needs: build
