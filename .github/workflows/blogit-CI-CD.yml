@@ -23,12 +23,6 @@ jobs:
       run: make test
     - name: Run coverage.py and generate badge
       run: make coverage
-    - name: Commit and push badge
-      run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git commit -a -m "generate coverage badge"
-        git push
       
   deploy:
     needs: build
