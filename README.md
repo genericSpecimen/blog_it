@@ -2,8 +2,8 @@
 A blogging platform made with Django.
 
 [![BlogIt CI/CD](https://github.com/genericSpecimen/blog_it/actions/workflows/blogit-CI-CD.yml/badge.svg)](https://github.com/genericSpecimen/blog_it/actions/workflows/blogit-CI-CD.yml)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Coverage](https://raw.githubusercontent.com/genericSpecimen/blog_it/main/coverage.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Check it out [here](https://blogit-now.herokuapp.com/blog/)!
 
