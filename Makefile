@@ -29,7 +29,7 @@ coverage:
 	$(PYTHON) -m coverage erase
 	$(PYTHON) -m coverage run --source='.' --omit='*/$(VENV)/*' --branch manage.py test
 	$(PYTHON) -m coverage report --fail-under=90 --show-missing --skip-covered
-	coverage-badge -o coverage.svg
+	$(PYTHON) -m coverage-badge -o coverage.svg
 
 .PHONY: run
 run:
