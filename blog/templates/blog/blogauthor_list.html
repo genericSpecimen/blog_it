@@ -5,7 +5,7 @@
 <h1 class="text-center">Explore Bloggers</h1>
 
 {% if blogauthor_list %}
-<div class="card-deck">
+<div class="card-deck text-center">
     {% for blogauthor in blogauthor_list %}
     <div class="card">
         <div class="mt-2 text-center">
@@ -20,7 +20,7 @@
                     <div class="col-8">
                     <p class="text-muted">Blog Posts</p>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                     <p class="text-success">{{ blogauthor.blogpost_set.all|length }}</p>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                     <div class="col-8">
                     <p class="text-muted">Subscribers</p>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                     <p class="text-success">98</p>
                     </div>
                 </div>
