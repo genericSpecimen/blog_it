@@ -2,7 +2,7 @@ from django.db import models
 
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from django.utils.safestring import mark_safe
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -62,6 +62,12 @@ def save_user_blogauthor(sender, instance, **kwargs):
         instance.blogauthor.save()
     except:
         pass
+
+class BlogCategory(models.Model):
+    name = models.CharField(max_length=32, primary_key=True)
+    
+    def __str__(self):
+        return self.name
     
 class BlogPost(models.Model):
     """
@@ -75,6 +81,9 @@ class BlogPost(models.Model):
     author = models.ForeignKey(BlogAuthor, on_delete=models.SET_NULL, null=True)
     
     post_date = models.DateField(default=date.today)
+    
+    categories = models.ManyToManyField(BlogCategory, blank=True,
+                                        help_text=mark_safe("Select zero or more categories, or <a href='/blog/blog/category-create/'>click here</a> to create a new category."))
     
     class Meta:
         ordering = ["-post_date"]
@@ -106,4 +115,3 @@ class BlogComment(models.Model):
         if (len(self.text) > max_len):
             return self.text[:max_len] + "..."
         return self.text
- 

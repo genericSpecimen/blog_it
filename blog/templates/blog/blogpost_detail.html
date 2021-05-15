@@ -4,6 +4,9 @@
 <div class="col-md-8 offset-md-2">
     <h1>{{ blogpost.title }}</h1>
     <h6 class="text-muted"><a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a> on {{ blogpost.post_date }}</h6>
+    {% for category in blogpost.categories.all %}
+    <a href="{% url 'blogcategoryposts-list' category.name %}" class="badge badge-dark"> {{ category }} </a>
+    {% endfor %}
     <p>{{ blogpost.description | linebreaks }}</p>
     <hr />
     <h3>Comments</h3>

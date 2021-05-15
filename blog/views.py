@@ -11,7 +11,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 # Create your views here.
-from .models import BlogAuthor, BlogPost, BlogComment
+from .models import BlogAuthor, BlogPost, BlogComment, BlogCategory
 from .forms import UserSignUpForm, UserUpdateForm
 
 from datetime import date
@@ -53,7 +53,18 @@ def index(request):
 class BlogPostListView(generic.ListView):
     model = BlogPost
     paginate_by = 10
-
+    
+    def get_queryset(self):
+        filter_val = self.request.GET.get('filter', '')
+        if filter_val:
+            return BlogPost.objects.filter(categories__name__contains=filter_val)
+        return BlogPost.objects.all()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.request.GET.get('filter', '')
+        return context
+        
 class BlogPostDetailView(generic.DetailView):
     model = BlogPost
 
@@ -112,7 +123,8 @@ class BlogPostCreateView(LoginRequiredMixin, CreateView):
     # author and post_date will be automatically set
     # author = current user
     # post_date = date.today()
-    fields = ['title', 'description']
+        
+    fields = ['title', 'categories', 'description']
     
     def form_valid(self, form):
         """
@@ -143,7 +155,25 @@ class BlogPostCreateView(LoginRequiredMixin, CreateView):
     
     def get_success_url(self):
         return reverse('blogpost-detail', args=(self.object.id,))
-        
+
+class BlogCategoryCreateView(LoginRequiredMixin, CreateView):
+    model = BlogCategory
+    fields = ['name']
+    
+    def get_success_url(self):
+        return reverse('blogpost-create')
+
+class BlogCategoryPostsListView(generic.ListView):
+    paginate_by = 10
+    
+    def get_queryset(self):
+        return BlogPost.objects.filter(categories__name__contains=self.kwargs['category'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.kwargs['category']
+        return context
+    
 class UserSignUpCreateView(CreateView):
     template_name = 'registration/signup.html'
     # We have to use reverse_lazy() instead of reverse(), as the urls are not loaded when the file is imported.

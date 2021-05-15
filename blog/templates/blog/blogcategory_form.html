@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="col-md-8 offset-md-2">
+    <h2>Create a new category</h2>
+    <hr />
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+            {{ field.label_tag }}<br />
+            {{ field }}
+            {% if field.help_text %}
+            <br /><small class="text-muted">{{ field.help_text }}</small>
+            {% endif %}
+            
+            {% for error in field.errors %}
+            <h6 class="text-danger">{{ error }}</h6>
+            {% endfor %}
+        </p>
+        {% endfor %}
+        <input class="btn btn-primary" type="submit" value="Create category" />
+    </form>
+</div>
+{% endblock %}
+ 
+ 
