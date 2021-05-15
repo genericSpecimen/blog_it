@@ -19,11 +19,15 @@
     <div class="col-md-6">
         <div class="card flex-md-row mb-4 box-shadow h-md-250">
             <div class="card-body d-flex flex-column align-items-start">
-                <strong class="d-inline-block mb-2 text-success">Design</strong>
+                <div class="row ml-1">
+                {% for category in blogpost.categories.all %}
+                <a href="{% url 'blogcategoryposts-list' category.name %}" class="badge badge-dark mr-1"> {{ category }} </a>
+                {% endfor %}
+                </div>
                 <h3 class="mb-0">
                     <a class="text-dark" href="{{ blogpost.get_absolute_url }}">{{ blogpost.title }}</a>
                 </h3>
-                <div class="mb-1 text-muted">{{ blogpost.post_date }}</div>
+                <small class="text-muted"><a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a> on {{ blogpost.post_date }}</small>
                 <p class="card-text mb-auto">{{ blogpost.description | truncatechars:80 }}</p>
                 <a href="{{ blogpost.get_absolute_url }}">Continue reading</a>
             </div>

@@ -37,6 +37,7 @@
                         <img class="rounded-circle article-img mt-1" src="{% static 'images/default-avatar.png'%}" alt="current-user" width="32" height="32" />
                     </li>
                     <li class="nav-item"><a class="nav-link text-primary" href="{{ user.blogauthor.get_absolute_url }}"> {{ user.username }}</a></li>
+                    <li class="nav-item"><a class="nav-link text-primary" href="{% url 'blogpost-create' %}"> Write </a></li>
                     <li class="nav-item"><a class="nav-link text-primary" href="{% url 'logout'%}">Log out</a></li>
                     {% else %}
                     <li class="nav-item"><a class="nav-link text-primary" href="{% url 'signup'%}">Sign up</a></li>

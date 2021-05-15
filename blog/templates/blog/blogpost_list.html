@@ -1,8 +1,20 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<div class="row">
 <div class="col-md-8 offset-md-2">
+    {% if category %}
+    <h1 class="text-center">Blog Posts about <em>{{ category }}</em></h1>
+    {% else %}
     <h1 class="text-center">Explore Blog Posts</h1>
+    {% endif %}
+    <div class="d-flex justify-content-center">
+    <form method="get" action="{% url 'blogs' %}" class="form-inline">
+        <label class="sr-only" for="inlineFormInputName2">Category Name</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" value="{{filter}}" name="filter" placeholder="Enter category name">
+        <button type="submit" class="btn btn-primary mb-2">Filter</button>
+    </form>
+    </div>
     {% if blogpost_list %}
     <div class="list-group list-group-flush">
         {% for blogpost in blogpost_list %}
@@ -12,6 +24,9 @@
                 <small class="text-muted">{{ blogpost.post_date }}</small>
             </div>
             <small>{{ blogpost.author }}</small>
+            {% for category in blogpost.categories.all %}
+            <span class="badge badge-dark">{{ category }} </span>
+            {% endfor %}
             <p class="mb-1">{{ blogpost.description | truncatechars:100 }}</p>
         </a>
         {% endfor %}
@@ -19,5 +34,7 @@
     {% else %}
     <p class="text-center text-danger">Crickets chirping... Looks like no one has posted anything yet.</p>
     {% endif %}
+</div>
+
 </div>
 {% endblock %}

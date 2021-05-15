@@ -19,7 +19,7 @@ Check it out [here](https://blogit-now.herokuapp.com/blog/)!
 - [x] Add the functionality of commenting on blog posts.
 - [x] Write basic tests
 - [x] Improve the user interface a bit
-- [ ] Allow users to create their own accounts with profile information
+- [x] Allow users to create their own accounts with profile information
 - [x] Allow users to create their own blog posts
-- [ ] Add a blog post category feature.
+- [x] Add a blog post category feature.
 - [ ] Add a blogger subscribe feature.

@@ -9,8 +9,7 @@
 </div>
 
 <div class="row mb-1 d-flex justify-content-center">
-
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="card mb-3">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
@@ -51,8 +50,10 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class="col-md-6">
+<div class="row mb-1 d-flex justify-content-center">
+    <div class="col-md-8">
         <div class="card mb-3">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
@@ -85,7 +86,7 @@
     </div>
 </div>
 
-<div class="row mb-1">
+<div class="row mb-1 d-flex justify-content-center">
     <div class="col-md-4">
         <div class="card mb-3">
             <div class="card-header">Statistics</div>
@@ -110,9 +111,10 @@
     </div>
 </div>
 
-<div class="offset-md-1">
-    <h4>Blog Posts</h4>
-    <hr />
+<div class="row">
+<div class="col-md-8 offset-md-2">
+    <h4 class="text-center"> Blog Posts </h4>
+
     {% if blogauthor.blogpost_set.all %}
     <div class="list-group list-group-flush">
         {% for blogpost in blogauthor.blogpost_set.all %}
@@ -122,13 +124,17 @@
                 <small class="text-muted">{{ blogpost.post_date }}</small>
             </div>
             <small>{{ blogpost.author }}</small>
+            {% for category in blogpost.categories.all %}
+            <span class="badge badge-dark">{{ category }} </span>
+            {% endfor %}
             <p class="mb-1">{{ blogpost.description | truncatechars:100 }}</p>
         </a>
         {% endfor %}
     </div>
-
     {% else %}
-    <p>This user hasn't written anything yet.</p>
+    <p class="text-center text-danger">Crickets chirping... Looks like this blogger hasn't posted anything yet.</p>
     {% endif %}
 </div>
+
 {% endblock %}
+
