@@ -57,7 +57,7 @@ class BlogPostListView(generic.ListView):
     def get_queryset(self):
         filter_val = self.request.GET.get('filter', '')
         if filter_val:
-            return BlogPost.objects.filter(categories__name__contains=filter_val)
+            return BlogPost.objects.filter(categories__name__icontains=filter_val)
         return BlogPost.objects.all()
     
     def get_context_data(self, **kwargs):
