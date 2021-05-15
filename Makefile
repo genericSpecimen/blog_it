@@ -28,7 +28,7 @@ test:
 coverage:
 	$(PYTHON) -m coverage erase
 	$(PYTHON) -m coverage run --source='.' --omit='*/$(VENV)/*' --branch manage.py test
-	$(PYTHON) -m coverage report --fail-under=90 --show-missing --skip-covered
+	$(PYTHON) -m coverage report --fail-under=85 --show-missing --skip-covered
 	$(BIN)/coverage-badge -f -o coverage.svg
 	echo '<!--'$(shell date)'-->' >> coverage.svg
 

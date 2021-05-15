@@ -32,6 +32,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     
     path('accounts/signup/', views.UserSignUpCreateView.as_view(), name='signup'),
+    path('accounts/update/', views.update_user, name='update'),
+    path('accounts/change-password/', views.UserPasswordChangeView.as_view(), name='change-password'),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -58,7 +58,7 @@ class BlogAuthorModelTest(TestCase):
     
     def test_get_absolute_url(self):
         blogger = BlogAuthor.objects.get(id=1)
-        self.assertEqual(blogger.get_absolute_url(), '/blog/blogger/1')
+        self.assertEqual(blogger.get_absolute_url(), '/blog/blogger/1/')
 
 class BlogPostModelTest(TestCase):
     @classmethod

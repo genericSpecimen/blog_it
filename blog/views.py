@@ -1,13 +1,18 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
+from django.views import generic
+from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse, reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 
 # Create your views here.
-
 from .models import BlogAuthor, BlogPost, BlogComment
-from .forms import UserSignUpForm
-from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
-from django.urls import reverse, reverse_lazy
+from .forms import UserSignUpForm, UserUpdateForm
 
 from datetime import date
 
@@ -98,11 +103,6 @@ class BlogCommentCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('blogpost-detail', kwargs={'pk' : self.kwargs['pk']})
 
-class UserSignUpCreateView(CreateView):
-    template_name = 'registration/signup.html'
-    success_url = reverse_lazy('login')
-    form_class = UserSignUpForm
-    
 class BlogPostCreateView(LoginRequiredMixin, CreateView):
     """
     A form for creating a blog post.
@@ -144,3 +144,45 @@ class BlogPostCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('blogpost-detail', args=(self.object.id,))
         
+class UserSignUpCreateView(CreateView):
+    template_name = 'registration/signup.html'
+    # We have to use reverse_lazy() instead of reverse(), as the urls are not loaded when the file is imported.
+    success_url = reverse_lazy('login')
+    form_class = UserSignUpForm
+
+class BlogAuthorUpdateView(LoginRequiredMixin, UpdateView):
+    model = BlogAuthor
+    fields = ['bio', 'location', 'date_of_birth']
+    
+    def get_object(self):
+        return self.request.user.blogauthor
+    
+    def get_success_url(self):
+        return reverse('blogger-detail', kwargs={'pk' : self.request.user.blogauthor.id})
+    
+class UserPasswordChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    template_name = 'registration/change_password.html'
+    
+    def get_success_url(self):
+        return reverse('blogger-detail', kwargs={'pk' : self.request.user.blogauthor.id})
+
+@login_required
+def update_user(request):
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=request.user)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, _('Account information successfully updated!'))
+            
+            return redirect('blogger-detail', pk=request.user.blogauthor.id)
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        form = UserUpdateForm(instance=request.user)
+    
+    return render(request,
+                  'registration/update.html', {
+                        'form' : form
+                    })
