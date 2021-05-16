@@ -5,7 +5,8 @@
     {% load static %}
     <img src="{% static 'images/default-avatar.png' %}" width="128" height="128" class="rounded" alt="profile-picture" />
     <h1 class="text-primary">{{ blogauthor }}</h1>
-    <small class="text-muted">{{ blogauthor.date_of_birth }}</small>
+    <small class="text-muted">{{ blogauthor.date_of_birth }}</small><br>
+    <a href="{% url 'follow-user' blogauthor.pk %}" class="btn btn-md btn-primary mt-2">Follow</a>
 </div>
 
 <div class="row mb-1 d-flex justify-content-center">
@@ -93,17 +94,26 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-9 text-secondary">
-                        <h6 class="mb-0">Blog Posts</h6>
+                        <a href="#Blog_Posts" class="mb-0">Blog Posts</a>
                     </div>
                     <div class="col-sm-3">{{ blogauthor.blogpost_set.all|length }}</div>
                 </div>
                 <hr />
                 <div class="row">
                     <div class="col-sm-9 text-secondary">
-                        <h6 class="mb-0">Subscribers</h6>
+                        <a href="{% url 'blogauthor-followers' blogauthor.pk %}" class="mb-0">Followers</a>
                     </div>
                     <div class="col-sm-3">
-                        <h6>0</h6>
+                        <h6>{{ blogauthor.user.followers.all | length }}</h6>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-9 text-secondary">
+                        <a href="{% url 'blogauthor-following' blogauthor.pk %}" class="mb-0">Following</a>
+                    </div>
+                    <div class="col-sm-3">
+                        <h6>{{ blogauthor.user.following.all | length }}</h6>
                     </div>
                 </div>
             </div>
@@ -113,7 +123,7 @@
 
 <div class="row">
 <div class="col-md-8 offset-md-2">
-    <h4 class="text-center"> Blog Posts </h4>
+    <h4 id="Blog_Posts" class="text-center"> Blog Posts </h4>
 
     {% if blogauthor.blogpost_set.all %}
     <div class="list-group list-group-flush">

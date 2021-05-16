@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="col-md-8 offset-md-3">
+    <h2>Confirm follow</h2> 
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+            {{ field.as_hidden }}
+            
+            {% for error in field.errors %}
+            <h6 class="text-danger">{{ error }}</h6>
+            {% endfor %}
+        </p>
+        {% endfor %}
+        <p>Are you sure you want to follow <a href="{% url 'blogger-detail' usertofollow.blogauthor.pk %}">{{ usertofollow.blogauthor }}</a> ?</p>
+        <input class="btn btn-primary mb-5" type="submit" value="Yes" />
+    </form>
+</div>
+{% endblock %}

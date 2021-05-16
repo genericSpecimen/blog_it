@@ -11,7 +11,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 # Create your views here.
-from .models import BlogAuthor, BlogPost, BlogComment, BlogCategory
+from .models import BlogAuthor, BlogPost, BlogComment, BlogCategory, UserFollowing
 from .forms import UserSignUpForm, UserUpdateForm
 
 from datetime import date
@@ -167,7 +167,7 @@ class BlogCategoryPostsListView(generic.ListView):
     paginate_by = 10
     
     def get_queryset(self):
-        return BlogPost.objects.filter(categories__name__contains=self.kwargs['category'])
+        return BlogPost.objects.filter(categories__name__icontains=self.kwargs['category'])
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -216,3 +216,73 @@ def update_user(request):
                   'registration/update.html', {
                         'form' : form
                     })
+
+class BlogAuthorFollowersListView(LoginRequiredMixin, generic.ListView):
+    paginate_by = 10
+    
+    def get_queryset(self):
+        user = User.objects.get(id=self.kwargs['pk'])
+        #print(user.followers.all())
+        #for object1 in user.followers.all():
+        #    print(object1.following_user_id)
+        return user.followers.all()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type'] = 'followers'
+        user = User.objects.get(id=self.kwargs['pk'])
+        context['user'] = user
+        #print(context)
+        return context
+
+class BlogAuthorFollowingListView(LoginRequiredMixin, generic.ListView):
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = User.objects.get(id=self.kwargs['pk'])
+        #print(user.following.all())
+        #for object1 in user.following.all():
+        #    print(object1.following_user_id.blogauthor.get_absolute_url())
+        return user.following.all()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type'] = 'following'
+        user = User.objects.get(id=self.kwargs['pk'])
+        context['user'] = user
+        print(context)
+        return context
+
+class UserFollowingCreateView(LoginRequiredMixin, CreateView):
+    model = UserFollowing
+    fields = ['follower_user_id', 'following_user_id']
+    
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['follower_user_id'] = self.request.user
+        initial['following_user_id'] = self.kwargs['pk']
+        return initial
+    
+    def get_success_url(self):
+        return reverse('blogger-detail', kwargs={'pk' : self.kwargs['pk']})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['usertofollow'] = User.objects.get(id=self.kwargs['pk'])
+        return context
+
+class UserFollowingBlogPostListView(LoginRequiredMixin, generic.ListView):
+    model = BlogPost
+    paginate_by = 10
+
+    def get_queryset(self):
+        filter_val = self.request.GET.get('filter', '')
+        if filter_val:
+            return BlogPost.objects.filter(author__user__followers__follower_user_id=self.request.user,
+                                                categories__name__icontains=filter_val)
+        return BlogPost.objects.filter(author__user__followers__follower_user_id=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['userfeed'] = True
+        return context

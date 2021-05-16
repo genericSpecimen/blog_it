@@ -26,16 +26,16 @@
                 </div>
                 <div class="row d-flex justify-content-between" style="word-wrap: break-word;">
                     <div class="col-8">
-                    <p class="text-muted">Subscribers</p>
+                    <p class="text-muted">Followers</p>
                     </div>
                     <div class="col-4">
-                    <p class="text-success">0</p>
+                    <p class="text-success"> {{ blogauthor.user.followers.all | length }} </p>
                     </div>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-center">
                 <a href="{{ blogauthor.get_absolute_url }}" class="btn btn-md btn-primary mr-1">Profile</a>
-                <a href="#" class="btn btn-md btn-primary">Subscribe</a>
+                <a href="{% url 'follow-user' blogauthor.pk %}" class="btn btn-md btn-primary">Follow</a>
             </div>
         </div>
     </div>

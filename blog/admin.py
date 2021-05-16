@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import BlogAuthor, BlogPost, BlogComment, BlogCategory
+from .models import BlogAuthor, BlogPost, BlogComment, BlogCategory, UserFollowing
 
 class BlogPostInline(admin.TabularInline):
     model = BlogPost
@@ -42,3 +42,8 @@ class BlogCategoryAdmin(admin.ModelAdmin):
     list_filter = ('name',)
     
     inline = [BlogCategoryInline]
+
+@admin.register(UserFollowing)
+class UserFollowingAdmin(admin.ModelAdmin):
+    list_display = ('follower_user_id', 'following_user_id')
+    list_filter = ('follower_user_id', 'following_user_id')

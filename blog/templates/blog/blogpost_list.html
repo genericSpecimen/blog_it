@@ -3,13 +3,22 @@
 {% block content %}
 <div class="row">
 <div class="col-md-8 offset-md-2">
-    {% if category %}
-    <h1 class="text-center">Blog Posts about <em>{{ category }}</em></h1>
+    {% if userfeed %}
+    <h1 class="text-center">Your Feed</h1>
     {% else %}
-    <h1 class="text-center">Explore Blog Posts</h1>
+        {% if category %}
+        <h1 class="text-center">Blog Posts on <em>{{ category }}</em></h1>
+        {% else %}
+        <h1 class="text-center">Explore Blog Posts</h1>
+        {% endif %}
     {% endif %}
+
     <div class="d-flex justify-content-center">
+    {% if userfeed %}
+    <form method="get" action="{% url 'user-feed' %}" class="form-inline">
+    {% else %}
     <form method="get" action="{% url 'blogs' %}" class="form-inline">
+    {% endif %}
         <label class="sr-only" for="inlineFormInputName2">Category Name</label>
         <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" value="{{filter}}" name="filter" placeholder="Enter category name">
         <button type="submit" class="btn btn-primary mb-2">Filter</button>
