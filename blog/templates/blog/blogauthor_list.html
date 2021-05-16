@@ -5,8 +5,9 @@
 <h1 class="text-center">Explore Bloggers</h1>
 
 {% if blogauthor_list %}
-<div class="card-deck text-center">
-    {% for blogauthor in blogauthor_list %}
+<div class="row">
+{% for blogauthor in blogauthor_list %}
+<div class="col-sm-3 text-center">
     <div class="card">
         <div class="mt-2 text-center">
     	{% load static %}
@@ -39,11 +40,11 @@
             </div>
         </div>
     </div>
-    {% endfor %}
 </div>
-
+{% endfor %}
+</div>
 {% else %}
-<p>There are no bloggers as of yet...</p>
+<p class="text-center">There are no bloggers as of yet...</p>
 {% endif %}
 
 {% endblock %}
