@@ -6,7 +6,7 @@
     <img src="{% static 'images/default-avatar.png' %}" width="128" height="128" class="rounded" alt="profile-picture" />
     <h1 class="text-primary">{{ blogauthor }}</h1>
     <small class="text-muted">{{ blogauthor.date_of_birth }}</small><br>
-    <a href="{% url 'follow-user' blogauthor.pk %}" class="btn btn-md btn-primary mt-2">Follow</a>
+    <a href="{% url 'follow-user' blogauthor.pk %}" class="btn btn-md btn-primary mt-2 mb-3">Follow</a>
 </div>
 
 <div class="row mb-1 d-flex justify-content-center">
