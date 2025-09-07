@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 # Create your views here.
 from .models import BlogAuthor, BlogPost, BlogComment, BlogCategory, UserFollowing
